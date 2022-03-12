@@ -1,8 +1,8 @@
 <template>
-    <div class="min-h-screen ">
+    <div class="min-h-screen">
         <NavBar v-if="open"/>
 
-        <div class="bg-black-200 px-3">
+        <div class="bg-black-200">
             <slot/>
         </div>
 

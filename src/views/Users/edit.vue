@@ -1,6 +1,6 @@
 <template>
     <Authenticated>
-        <ButtonBack url="/roles">
+        <ButtonBack :url="{name:'users.index'}">
             <template #icon>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
@@ -8,12 +8,12 @@
             </template>
             Atras
             <template #title>
-                Agregar usuario
+                Actualizar usuario
             </template>
         </ButtonBack>
 
         <Card>
-            <form @submit.prevent="store" enctype="multipart/form-data" class="w-full">
+            <form @submit.prevent="update" enctype="multipart/form-data" class="w-full">
                 <div class="mt-5">
                     <LabelTitle value="Nombre"/>
                     <InputText type="text" v-model="form.nombre" class="w-full mt-2" placeholder="Nombre"/>
@@ -37,7 +37,9 @@
                     <span v-if="showError['rol_id']" v-text="showError['rol_id']" class="text-sm text-red-500"></span>
                 </div>
 
-                <div class="mt-5">
+                <BreezeLoading v-if="loading"/>
+
+                <!-- <div class="mt-5">
                     <LabelTitle value="Contraseña"/>
                     <InputText type="password" v-model="form.password" class="w-full mt-2" placeholder="Contraseña"/>
                     <span v-if="showError['password']" v-text="showError['password']" class="text-sm text-red-500"></span>
@@ -47,12 +49,12 @@
                     <LabelTitle value="Confirmar contraseña"/>
                     <InputText type="password" v-model="confirt_password" class="w-full mt-2" placeholder="Confirmar contraseña"/>
                     <span v-if="showError['confirt_password']" v-text="showError['confirt_password']" class="text-sm text-red-500"></span>
-                </div>
+                </div> -->
                 
 
                 <div class="mt-10">
                     <ButtonDefault>
-                        Guardar
+                        Actualizar
                     </ButtonDefault>
                 </div>
             </form>
@@ -71,6 +73,7 @@ import {rolesServices} from '../../services/rolesServices'
 import Authenticated from '../../layouts/Authenticate.vue'
 import LabelTitle from '../../components/LabelSubTitleForms.vue'
 import LabelTitleForms from '../../components/LabelTitleForms.vue'
+import BreezeLoading from '../../components/Loading.vue'
 export default ({
     components:{
         Card,
@@ -80,27 +83,27 @@ export default ({
         LabelTitle,
         BreezeSelect,
         ButtonDefault,
+        BreezeLoading,
         Authenticated,
         LabelTitleForms
     },
     data(){
         return{
             form:{
-                id:0,
-                url:'',
                 email:'',
                 rol_id:'',
                 nombre:'',
-                password:'',
                 apellido:'',
+                // password:'',
             },
             roles:'',
             showError:[],
             confirt_password:'',
+            loading:true
         }
     },
     methods:{
-        store(){
+        update(){
             this.showError=[]
             if (this.form.nombre=='') {
                 this.showError['nombre']='El compo nombres es requerido';
@@ -118,20 +121,20 @@ export default ({
                 this.showError['rol_id']='El compo rol es requerido';
                 return;
             }
-            if (this.form.password=='') {
-                this.showError['password']='El compo contraseña es requerido';
-                return;
-            }
-            if (this.confirt_password=='') {
-                this.showError['confirt_password']='El compo confirmar contraseña es requerido';
-                return;
-            }
-            if (this.form.password!==this.confirt_password) {
-                this.showError['password']='Las contraseñas no coinciden';
-                this.form.password=''
-                this.confirt_password=''
-                return;
-            }
+            // if (this.form.password=='') {
+            //     this.showError['password']='El compo contraseña es requerido';
+            //     return;
+            // }
+            // if (this.confirt_password=='') {
+            //     this.showError['confirt_password']='El compo confirmar contraseña es requerido';
+            //     return;
+            // }
+            // if (this.form.password!==this.confirt_password) {
+            //     this.showError['password']='Las contraseñas no coinciden';
+            //     this.form.password=''
+            //     this.confirt_password=''
+            //     return;
+            // }
 
             let datos=JSON.stringify(this.form)
             userServices.store(datos)
@@ -155,6 +158,20 @@ export default ({
         .catch((error)=>{
             console.log('Error al cargar los roles '+error)
         })
+
+
+        userServices.show(this.$route.params.id)
+        .then((response)=>{
+            this.form.nombre=response.data.nombre
+            this.form.apellido=response.data.apellido
+            this.form.email=response.data.email
+            this.form.rol_id=response.data.rol_id
+            this.loading=false
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+        
     }
 })
 </script>

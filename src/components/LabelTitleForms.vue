@@ -1,5 +1,5 @@
 <template>
-    <label class="block mt-2 font-semibold uppercase text-xl text-gray-400">
+    <label class="block mt-2 font-semibold uppercase text-xl text-gray-200">
         <span v-if="value">{{ value }}</span>
         <span v-else><slot /></span>
     </label>

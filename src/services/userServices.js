@@ -7,8 +7,17 @@ export const userServices={
             return localStorage.getItem('token')
         }
     },
-
-    getUser(){
+    index(){
+        return axios({
+            url:url.url+'usuarios',
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+this.getToken()
+            }
+        })
+    },
+    show(){
         if (localStorage.getItem('token') && localStorage.getItem('identify')) {
             let datasUserAuthenticated=localStorage.getItem('identify')
         
@@ -24,10 +33,28 @@ export const userServices={
             })
         }
     },
-    getUsers(){
-
+    store(datos){
+        return axios({
+            url:url.url+'usuarios',
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+this.getToken()
+            },
+            data:datos
+        })
     },
-    updateUser(id,data){
+    register(datos){
+        return axios({
+            url:url.url+'register',
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            data:datos
+        })
+    },
+    update(id,data){
         return axios({
             url:url.url+'usuarios/'+id,
             method:'PUT',

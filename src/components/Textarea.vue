@@ -1,5 +1,5 @@
 <template>
-    <input class="px-2 mb-2 h-14 border-none bg-gray-600 focus:ring-0 focus:outline-none focus:border-transparent placeholder-gray-200 text-gray-300 rounded-lg"
+    <textarea class="px-2 h-20 border-none bg-gray-600 focus:ring-0 focus:outline-none focus:border-transparent text-base placeholder-gray-200 text-gray-300 rounded-lg "
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"

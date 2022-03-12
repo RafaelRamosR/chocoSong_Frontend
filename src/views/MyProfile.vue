@@ -106,7 +106,7 @@ export default ({
         updateProfile(){
             let datos=JSON.stringify(this.form)
 
-            userServices.updateUser(this.idUser,datos)
+            userServices.update(this.idUser,datos)
             .then((response)=>{
                 this.form.nombre=response.data.nombre
                 this.form.apellido=response.data.apellido
@@ -123,7 +123,7 @@ export default ({
         }
     },
     mounted(){
-        userServices.getUser()
+        userServices.show()
         .then((response)=>{
             this.idUser=response.data.id
             this.form.rol_id=response.data.rol_id

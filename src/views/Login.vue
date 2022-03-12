@@ -7,38 +7,39 @@
                 </svg>
             </template>
             Atras
+            <template #title>
+                Login
+            </template>
         </ButtonBack>
-        <div class="">
-            <div class="min-h-screen flex justify-center items-center">
-                <div class="min-w-full">
+        
+        <div class="min-h-screen flex justify-center px-3 items-center">
+            <div class="min-w-full">
+                <div class="flex items-center justify-center mb-14">
+                    <img class=" w-28" src="../assets/login.svg" alt="">
+                </div>
+                <div class="">
+                    <form @submit.prevent="store" enctype="multipart/form-data" class="w-full">
+                        <div class="text-center">
+                            <LabelTitleForms value="Login"/>
+                        </div>
+                        <div class="mt-5">
+                            <LabelTitle value="Email"/>
+                            <InputText type="text" v-model="form.username" class="w-full mt-2" placeholder="Correo electrónico"/>
+                            <span v-if="showError['username']" v-text="showError['username']" class="text-sm text-red-500"></span>
+                        </div>
 
-                    <div class="flex items-center justify-center mb-14">
-                        <img class=" w-28" src="../assets/login.svg" alt="">
-                    </div>
-                    <div class="">
-                        <form @submit.prevent="store" enctype="multipart/form-data" class="w-full">
-                            <div class="text-center">
-                                <LabelTitleForms value="Login"/>
-                            </div>
-                            <div class="mt-5">
-                                <LabelTitle value="Email"/>
-                                <InputText type="text" v-model="form.username" class="w-full mt-2" placeholder="Correo electrónico"/>
-                                <span v-if="showError['username']" v-text="showError['username']" class="text-sm text-red-500"></span>
-                            </div>
+                        <div class="mt-6">
+                            <LabelTitle value="Contraseña"/>
+                            <InputText type="password" v-model="form.password" class="w-full mt-2" placeholder="Contraseña"/>
+                            <span v-if="showError['password']" v-text="showError['password']" class="text-sm text-red-500"></span>
+                        </div>
 
-                            <div class="mt-6">
-                                <LabelTitle value="Contraseña"/>
-                                <InputText type="password" v-model="form.password" class="w-full mt-2" placeholder="Contraseña"/>
-                                <span v-if="showError['password']" v-text="showError['password']" class="text-sm text-red-500"></span>
-                            </div>
-
-                            <div class="mt-10">
-                                <ButtonDefault>
-                                    Login
-                                </ButtonDefault>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="mt-10">
+                            <ButtonDefault>
+                                Login
+                            </ButtonDefault>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -66,8 +67,8 @@ export default{
     data(){
         return{
             form:{
-                username:'admin@choquisong.com',
-                password:'admin999',
+                username:'superadmin@choquisong.com',
+                password:'superadmin999',
             },
             showError:[],
         }
