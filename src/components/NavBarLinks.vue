@@ -14,7 +14,7 @@ export default ({
         RouterLink,
     },
     props:{
-        url:String
+        url:Object
     }
 })
 </script>

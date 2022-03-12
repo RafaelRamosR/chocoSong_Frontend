@@ -17,6 +17,16 @@ export const userServices={
             }
         })
     },
+    getUser(id){
+        return axios({
+            url:url.url+'usuarios/'+id,
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+this.getToken()
+            }
+        })  
+    },
     show(){
         if (localStorage.getItem('token') && localStorage.getItem('identify')) {
             let datasUserAuthenticated=localStorage.getItem('identify')
@@ -63,6 +73,16 @@ export const userServices={
                 'Authorization':'Bearer '+this.getToken()
             },
             data:data
+        })
+    },
+    delete(id){
+        return axios({
+            url:url.url+'usuarios/'+id,
+            method:'DELETE',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+this.getToken()
+            }
         })
     }
 

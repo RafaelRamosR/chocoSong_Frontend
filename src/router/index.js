@@ -59,24 +59,24 @@ const router = createRouter({
 //----------------------------------------------------Roles-------------------------------------
     {
       path: '/roles',
-      name: 'roles',
+      name: 'roles.index',
       component: () => import('../views/Roles/index.vue'),
       beforeEnter: auth,
     },
     {
-      path: '/editar-rol/:id',
-      name: 'editar-rol',
+      path: '/roles/:id/edit',
+      name: 'roles.edit',
       component: () => import('../views/Roles/edit.vue'),
       beforeEnter: auth,
     },
     {
-      path: '/ver-rol/:id',
-      name: 'ver-rol',
+      path: '/roles/:id/ver',
+      name: 'roles.show',
       component: () => import('../views/Roles/show.vue'),
       beforeEnter: auth,
     },
     {
-      path: '/crear-rol',
+      path: '/roles/crear',
       name: 'roles.create',
       component: () => import('../views/Roles/create.vue'),
       beforeEnter: auth,
@@ -101,11 +101,64 @@ const router = createRouter({
       beforeEnter: auth,
     },
     {
-      path: '/usuarios/:id',
+      path: '/usuarios/:id/ver',
       name: 'users.show',
       component: () => import('../views/Users/show.vue'),
       beforeEnter: auth,
     },
+
+//----------------------------------------------------Categories-------------------------------------
+    {
+      path: '/categorias',
+      name: 'categories.index',
+      component: () => import('../views/Categories/index.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/categoria/:id/editar',
+      name: 'categories.edit',
+      component: () => import('../views/Categories/edit.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/categoria/:id/ver',
+      name: 'categories.show',
+      component: () => import('../views/Categories/show.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/categorias/crear',
+      name: 'categories.create',
+      component: () => import('../views/Categories/create.vue'),
+      beforeEnter: auth,
+    },
+
+//----------------------------------------------------Categories-------------------------------------
+    {
+      path: '/departamentos',
+      name: 'departamentos.index',
+      component: () => import('../views/Departamentos/index.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/departamento/:id/editar',
+      name: 'departamentos.edit',
+      component: () => import('../views/Departamentos/edit.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/departamento/:id/ver',
+      name: 'departamentos.show',
+      component: () => import('../views/Departamentos/show.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/departamentos/crear',
+      name: 'departamentos.create',
+      component: () => import('../views/Departamentos/create.vue'),
+      beforeEnter: auth,
+    },
+
 
   ]
 })

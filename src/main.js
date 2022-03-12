@@ -8,10 +8,10 @@ import '@ionic/vue/css/core.css'
 
 
 import './assets/base.css'
-
+import Toaster from '@meforma/vue-toaster';
 
 const app = createApp(App)
 
-app.use(router,IonicVue)
+app.use(router,IonicVue,Toaster)
 
 app.mount('#app')

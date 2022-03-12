@@ -1,15 +1,14 @@
 <template>
-    <div class=" bg-black-200 mx-3 w-full fixed grid grid-cols-2 items-center h-16">
+    <div class=" bg-black-200 mx-3 w-full fixed flex items-center h-16">
         <RouterLink :to="url" class="text-gray-200 w-28 flex items-center">
             <div class="mr-4">
                 <slot name="icon"/>
             </div>
             <slot/>
         </RouterLink>
-        <div class="text-gray-200 mr-3 font-bold text-lg text-center">
+        <div class="text-gray-200 mr-3 justify-end font-bold text-lg text-center">
             <slot name="title"/>
         </div>
-        <div></div>
     </div>
 </template>
 <script>
@@ -20,7 +19,7 @@ export default ({
         RouterLink,
     },
     props:{
-        url:String
+        url:Object
     }
 })
 </script>

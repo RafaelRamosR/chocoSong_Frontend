@@ -8,7 +8,7 @@
             </template>
             Atras
             <template #title>
-                Roles
+                Departamentos
             </template>
         </ButtonBack>
 
@@ -16,7 +16,7 @@
             <Table>
                 <template #title>
                     <div class="flex justify-end">
-                        <RouterLink :to="{name:'roles.create'}">
+                        <RouterLink :to="{name:'departamentos.create'}">
                             <button class="bg-teal-500 text-gray-200 rounded-md px-2 py-1 right-0">
                                 Agregar
                             </button>
@@ -31,10 +31,10 @@
                         <td v-html="dato.id"/>
                         <td v-html="dato.nombre"/>
                         <td class="flex items-center">
-                            <RouterLink :to="{name:'roles.edit',params:{id:dato.id}}" class="mr-3">
+                            <RouterLink :to="{name:'departamentos.edit',params:{id:dato.id}}" class="mr-3">
                                 <IconEdit/>
                             </RouterLink>
-                            <RouterLink :to="{name:'roles.show',params:{id:dato.id}}" class="mr-3">
+                            <RouterLink :to="{name:'departamentos.show',params:{id:dato.id}}" class="mr-3">
                                 <IconShow class="mr-2"/>
                             </RouterLink>
                            
@@ -58,8 +58,8 @@ import ButtonBack from '../../components/ButtonBack.vue'
 import IconEdit from '../../components/icons/IconEdit.vue'
 import IconShow from '../../components/icons/IconShow.vue'
 import Authenticated from '../../layouts/Authenticate.vue'
-import {rolesServices} from '../../services/rolesServices'
 import IconDestroy from '../../components/icons/IconDestroy.vue'
+import {departamentosServices} from '../../services/departamentosServices'
 export default ({
     components:{
         Table,
@@ -88,12 +88,24 @@ export default ({
         cancel(){
             this.showAlert=false
         },
+        getCategories(){
+            departamentosServices.index()
+            .then((response)=>{
+                if (response.status==200) {
+                    this.datos=response.data
+                    this.loading=false
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        },
         forceDelete(){
             if (this.id) {
-                rolesServices.delete(this.id)
+                departamentosServices.delete(this.id)
                 .then((response)=>{
                     this.showAlert=false
-                    this.$router.push({name: "roles"})
+                    this.getCategories()
                 })
                 .catch((error)=>{
                     console.log(error)
@@ -102,16 +114,7 @@ export default ({
         }
     },
     mounted(){
-        rolesServices.index()
-        .then((response)=>{
-            if (response.status==200) {
-                this.datos=response.data
-                this.loading=false
-            }
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
+        this.getCategories()
     }
 })
 </script>

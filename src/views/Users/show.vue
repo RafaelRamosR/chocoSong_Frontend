@@ -1,6 +1,6 @@
 <template>
     <Authenticated>
-        <ButtonBack url="/roles">
+        <ButtonBack :url="{name:'users.index'}">
             <template #icon>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
@@ -8,25 +8,49 @@
             </template>
             Atras
             <template #title>
-                Mostrar rol
+                Datos del usuario
             </template>
         </ButtonBack>
 
         <Card>
-            <form @submit.prevent="store" enctype="multipart/form-data" class="w-full">
-                <!-- <div class="text-center">
-                    <LabelTitleForms value="Ver rol"/>
-                </div> -->
+            <form @submit.prevent="update" enctype="multipart/form-data" class="w-full">
                 <div class="mt-5">
                     <LabelTitle value="Nombre"/>
                     <InputText type="text" disabled v-model="form.nombre" class="w-full mt-2" placeholder="Nombre"/>
+                    <span v-if="showError['nombre']" v-text="showError['nombre']" class="text-sm text-red-500"></span>
                 </div>
                 <div class="mt-5">
-                    <LabelTitle value="Descripcion"/>
-                    <Textarea type="text" disabled v-model="form.descripcion" class="w-full mt-2" placeholder="Descripción"/>
+                    <LabelTitle value="Apellidos"/>
+                    <InputText type="text"  disabled v-model="form.apellido" class="w-full mt-2" placeholder="Apellidos"/>
+                    <span v-if="showError['apellido']" v-text="showError['apellido']" class="text-sm text-red-500"></span>
                 </div>
+
+                <div class="mt-5">
+                    <LabelTitle value="Email"/>
+                    <InputText type="email" disabled v-model="form.email" class="w-full mt-2" placeholder="Email"/>
+                    <span v-if="showError['email']" v-text="showError['email']" class="text-sm text-red-500"></span>
+                </div>
+
+                <div class="mt-5">
+                    <LabelTitle value="Rol"/>
+                    <BreezeSelect :datas="roles" disabled v-model="form.rol_id" class="w-full mt-2"/>
+                    <span v-if="showError['rol_id']" v-text="showError['rol_id']" class="text-sm text-red-500"></span>
+                </div>
+
+                <BreezeLoading v-if="loading"/>
+
+                <!-- <div class="mt-5">
+                    <LabelTitle value="Contraseña"/>
+                    <InputText type="password" v-model="form.password" class="w-full mt-2" placeholder="Contraseña"/>
+                    <span v-if="showError['password']" v-text="showError['password']" class="text-sm text-red-500"></span>
+                </div>
+
+                 <div class="mt-5">
+                    <LabelTitle value="Confirmar contraseña"/>
+                    <InputText type="password" v-model="confirt_password" class="w-full mt-2" placeholder="Confirmar contraseña"/>
+                    <span v-if="showError['confirt_password']" v-text="showError['confirt_password']" class="text-sm text-red-500"></span>
+                </div> -->
             </form>
-            <BreezeLoading v-if="loading"/>
         </Card>
     </Authenticated>
 </template>
@@ -34,13 +58,15 @@
 import Card from '../../components/Card.vue'
 import Textarea from '../../components/Textarea.vue' 
 import InputText from '../../components/InputName.vue' 
-import BreezeLoading from '../../components/Loading.vue'
+import BreezeSelect from '../../components/Select.vue'
+import ButtonDefault from '../../components/Button.vue'
 import ButtonBack from '../../components/ButtonBack.vue'
+import {userServices} from '../../services/userServices'
 import {rolesServices} from '../../services/rolesServices'
 import Authenticated from '../../layouts/Authenticate.vue'
-import LabelTitleForms from '../../components/LabelTitleForms.vue'
 import LabelTitle from '../../components/LabelSubTitleForms.vue'
-
+import LabelTitleForms from '../../components/LabelTitleForms.vue'
+import BreezeLoading from '../../components/Loading.vue'
 export default ({
     components:{
         Card,
@@ -48,6 +74,8 @@ export default ({
         InputText,
         ButtonBack,
         LabelTitle,
+        BreezeSelect,
+        ButtonDefault,
         BreezeLoading,
         Authenticated,
         LabelTitleForms
@@ -55,23 +83,40 @@ export default ({
     data(){
         return{
             form:{
+                email:'',
+                rol_id:'',
                 nombre:'',
-                descripcion:'',
+                apellido:'',
+                // password:'',
             },
-            loading:true,
+            roles:'',
+            showError:[],
+            confirt_password:'',
+            loading:true
         }
     },
-    mounted(){
-        rolesServices.show(this.$route.params.id)
-        .then((response)=>{
-            this.form.nombre=response.data.nombre
-            this.form.descripcion=response.data.descripcion
-            this.loading=false
 
+    mounted(){
+        rolesServices.index()
+        .then((response)=>{
+            this.roles=response.data
         })
         .catch((error)=>{
-            console.log(error)  
+            console.log('Error al cargar los roles '+error)
         })
+
+        userServices.getUser(this.$route.params.id)
+        .then((response)=>{
+            this.form.nombre=response.data.nombre
+            this.form.apellido=response.data.apellido
+            this.form.email=response.data.email
+            this.form.rol_id=response.data.rol_id
+            this.loading=false
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+        
     }
 })
 </script>

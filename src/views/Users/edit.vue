@@ -121,23 +121,9 @@ export default ({
                 this.showError['rol_id']='El compo rol es requerido';
                 return;
             }
-            // if (this.form.password=='') {
-            //     this.showError['password']='El compo contraseña es requerido';
-            //     return;
-            // }
-            // if (this.confirt_password=='') {
-            //     this.showError['confirt_password']='El compo confirmar contraseña es requerido';
-            //     return;
-            // }
-            // if (this.form.password!==this.confirt_password) {
-            //     this.showError['password']='Las contraseñas no coinciden';
-            //     this.form.password=''
-            //     this.confirt_password=''
-            //     return;
-            // }
 
             let datos=JSON.stringify(this.form)
-            userServices.store(datos)
+            userServices.update(this.$route.params.id,datos)
             .then((response)=>{
                 if(response.status==200){
                     console.log(response)
@@ -159,8 +145,7 @@ export default ({
             console.log('Error al cargar los roles '+error)
         })
 
-
-        userServices.show(this.$route.params.id)
+        userServices.getUser(this.$route.params.id)
         .then((response)=>{
             this.form.nombre=response.data.nombre
             this.form.apellido=response.data.apellido
