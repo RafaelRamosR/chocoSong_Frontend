@@ -1,11 +1,13 @@
 <template>
     <nav>
-        <div class="min-h-screen z-50 bg-black-100 shadow-xl fixed w-56 rounded-r-xl">
+        <div class=" z-50 bg-black-100 shadow-xl fixed w-56 rounded-r-xl">
             <div class="my-10 mx-4">
-                <div class="text-gray-300">
-                    <div v-if="datos.url" class="flex items-center mb-5">
-                        <img class="rounded-full w-10 mr-2" :src="datos.url" :alt="datos.nombre">
-                        <span v-text="datos.nombre"></span>
+                <div class="text-gray-300 relative min-h-screen">
+                    <div v-if="datos.url" class="mb-8">
+                        <RouterLink class="flex items-center" :to="{name:'mi-perfil'}">
+                            <img class="rounded-full w-10 mr-2" :src="datos.url" :alt="datos.nombre">
+                            <span v-text="datos.nombre"></span>
+                        </RouterLink>
                     </div>
 
                     <NavBarLinks :url="{name:'home'}" v-if="!datos.id">
@@ -56,6 +58,15 @@
                             Inicio
                     </NavBarLinks>
                     
+                    <NavBarLinks v-if="datos.id && datos.rol_id==1 || datos.rol_id==4" :url="{name:'users.publications'}">
+                            <template #icon>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                </svg>
+                            </template>
+                            Mis publicaciones
+                    </NavBarLinks>
+
                     <NavBarLinks v-if="datos.id && datos.rol_id==1" :url="{name:'users.index'}">
                             <template #icon>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -68,7 +79,7 @@
                     <NavBarLinks v-if="datos.id && datos.rol_id==1" :url="{name:'roles.index'}">
                             <template #icon>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                    <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" />
                                 </svg>
                             </template>
                             Roles
@@ -77,7 +88,7 @@
                     <NavBarLinks :url="{name:'categories.index'}" v-if="datos.id && datos.rol_id==1">
                             <template #icon>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                    <path fill-rule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clip-rule="evenodd" />
                                 </svg>
                             </template>
                             Categorias
@@ -86,13 +97,31 @@
                     <NavBarLinks :url="{name:'departamentos.index'}" v-if="datos.id && datos.rol_id==1">
                             <template #icon>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                                 </svg>
                             </template>
                             Departamentos
                     </NavBarLinks>
 
-                    <NavBarLinks :url="{name:'home'}" @click="logout()" v-if="datos.id && datos.rol_id==1">
+                    <NavBarLinks :url="{name:'permissions.index'}" v-if="datos.id && datos.rol_id==1">
+                            <template #icon>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                </svg>
+                            </template>
+                            Permisos
+                    </NavBarLinks>
+
+                    <NavBarLinks :url="{name:'logs.index'}" v-if="datos.id && datos.rol_id==1">
+                            <template #icon>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </template>
+                            Logs
+                    </NavBarLinks>
+
+                    <NavBarLinks :url="{name:'home'}" class="absolute bottom-14" @click="logout()">
                             <template #icon>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
@@ -108,10 +137,12 @@
     </nav>
 </template>
 <script>
+import { RouterLink } from 'vue-router'
 import Dropdown from '../components/Dropdown.vue'
-import DropdownLink from '../components/DropdownLink.vue'
 import {userServices} from '../services/userServices'
 import NavBarLinks from '../components/NavBarLinks.vue'
+import DropdownLink from '../components/DropdownLink.vue'
+
 export default ({
     components:{
         Dropdown,

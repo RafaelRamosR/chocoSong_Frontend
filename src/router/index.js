@@ -106,6 +106,12 @@ const router = createRouter({
       component: () => import('../views/Users/show.vue'),
       beforeEnter: auth,
     },
+    {
+      path: '/mis-publicaciones',
+      name: 'users.publications',
+      component: () => import('../views/Users/Publications.vue'),
+      beforeEnter: auth,
+    },
 
 //----------------------------------------------------Categories-------------------------------------
     {
@@ -159,6 +165,47 @@ const router = createRouter({
       beforeEnter: auth,
     },
 
+//----------------------------------------------------Categories-------------------------------------
+    {
+      path: '/permisos',
+      name: 'permissions.index',
+      component: () => import('../views/Permissions/index.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/permiso/:id/editar',
+      name: 'permissions.edit',
+      component: () => import('../views/Permissions/edit.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/permiso/:id/ver',
+      name: 'permissions.show',
+      component: () => import('../views/Permissions/show.vue'),
+      beforeEnter: auth,
+    },
+    {
+      path: '/permisos/crear',
+      name: 'permissions.create',
+      component: () => import('../views/Permissions/create.vue'),
+      beforeEnter: auth,
+    },
+    
+//----------------------------------------------------Categories-------------------------------------
+    {
+      path: '/logs',
+      name: 'logs.index',
+      component: () => import('../views/Logs/index.vue'),
+      beforeEnter: auth,
+    },
+  
+  //---------------------------------------------My publications-----------------------------------------
+  {
+    path: '/publicaciones/crear',
+    name: 'publications.create',
+    component: () => import('../views/Publications/create.vue'),
+    beforeEnter: auth,
+  },
 
   ]
 })

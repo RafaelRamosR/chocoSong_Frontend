@@ -7,8 +7,6 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
-    "@ionic/vue": "^6.0.9",
-    "@meforma/vue-toaster": "^1.3.0",
     "axios": "^0.26.0",
     "stylus": "^0.56.0",
     "stylus-loader": "^3.0.2",

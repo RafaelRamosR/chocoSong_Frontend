@@ -1,15 +1,18 @@
 <template>
-    <PageBlanck>
-        <template #back>
-            <router-link to="/dashboard">
-                <IconBack/>
-            </router-link>
-        </template>
-        <template #title>
-            Mi perfil
-        </template>
-        
-        <div class="bg-gray-50 mt-4 rounded-md shadow-md p-3">
+    
+    <Authenticated>
+        <ButtonBack :url="{name:'dashboard'}">
+            <template #icon>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
+                </svg>
+            </template>
+            Atras
+            <template #title>
+                Actualizar perfil
+            </template>
+        </ButtonBack>
+        <Card>
             <form @submit.prevent="updateProfile()" class="w-full">
                 <div class="text-center">
                     <LabelTitleForms value="Mis datos"/>
@@ -33,10 +36,8 @@
                     </Button>
                 </div>
             </form>
-        </div>
 
-        <div class="bg-gray-50 mt-4 rounded-md mt-10 shadow-md p-3">
-            <form @submit.prevent="updatePassword()" class="w-full">
+            <form @submit.prevent="updatePassword()" class="w-full mt-10">
                 <div class="text-center">
                     <LabelTitleForms value="Cambiar contraseña"/>
                 </div>
@@ -55,29 +56,31 @@
                     </Button>
                 </div>
             </form>
-        </div>
+        </Card>
         <FolatMessage v-if="typeMessage" :type="typeMessage" message="Datos actualizados"/>
-    </PageBlanck>
+    </Authenticated>
 </template>
 <script>
-import Button from '../components/Button.vue'
-import LabelSubTitleForms from '../components/LabelSubTitleForms.vue'
-import LabelTitleForms from '../components/LabelTitleForms.vue'
-import Input from '../components/InputName.vue'
 import { RouterLink } from 'vue-router'
-import PageBlanck from '../components/pageBlank.vue'
+import Card from '../components/Card.vue'
+import Button from '../components/Button.vue'
+import Input from '../components/InputName.vue'
+import {userServices} from '../services/userServices'
 import Authenticated from '../layouts/Authenticate.vue'
 import IconBack from '../components/icons/IconBack.vue'
-import {userServices} from '../services/userServices'
+import ButtonBack from '../components/ButtonBack.vue'
 import FolatMessage from '../components/FloatMessege.vue'
-import {useToast} from 'vue-toastification'
+import LabelTitleForms from '../components/LabelTitleForms.vue'
+import LabelSubTitleForms from '../components/LabelSubTitleForms.vue'
+
 export default ({
     components:{
+        Card,
         Input,
         Button,
         IconBack,
-        PageBlanck,
         RouterLink,
+        ButtonBack,
         FolatMessage,
         Authenticated,
         LabelTitleForms,

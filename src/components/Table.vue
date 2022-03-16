@@ -9,7 +9,7 @@
                     <tr class="text-gray-200 font-poppins font-medium">
                         <td>#</td>
                         <slot name="thead"/>
-                        <td>Acciones</td>
+                        <td v-if="acciones">Acciones</td>
                     </tr>
                 </thead>
                 <tbody class="text-gray-300 text-sm">
@@ -19,3 +19,12 @@
         </div>
     </div>
 </template>
+<script>
+export default ({
+    props:{
+        acciones:{
+            default:true
+        }
+    }
+})
+</script>

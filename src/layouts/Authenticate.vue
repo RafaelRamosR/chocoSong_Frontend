@@ -6,17 +6,20 @@
             <slot/>
         </div>
 
-       <Amburger @click="open=!open"/>
+       <Amburger v-if="!open" @click="open=true"/>
+       <AmburgerClose v-if="open" @click="open=false"/>
     </div>
 </template>
 <script>
     import NavBar from '../navbars/NavBar.vue'
     import Amburger from '../components/Amburger.vue'
+    import AmburgerClose from '../components/AmburgerClose.vue'
 
     export default{
         components:{
             NavBar,
             Amburger,
+            AmburgerClose,
         },
         data(){
             return{

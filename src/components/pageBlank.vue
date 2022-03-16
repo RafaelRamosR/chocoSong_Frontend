@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-gray-50 ">
-        <div class="flex px-4 items-center justify-between sticky  bg-gray-100 h-12 w-full top-0">
-            <div class=" justify-start">
+    <div class="bg-black-200 ">
+        <div class="flex px-2 items-center justify-between sticky  bg-gray-100 h-12 w-full top-0">
+            <div class="justify-start">
                 <slot name="back"/>
             </div>
             <div class="justify-center">

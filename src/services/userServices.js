@@ -84,6 +84,13 @@ export const userServices={
                 'Authorization':'Bearer '+this.getToken()
             }
         })
+    },
+    getDataUserAuthenticated(){
+        let datos=[]
+        if (localStorage.getItem('token') || localStorage.getItem('identify')) {
+            datos=JSON.parse(localStorage.getItem('identify'))
+        }
+        return datos
     }
 
 }
