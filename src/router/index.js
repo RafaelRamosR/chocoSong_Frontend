@@ -21,7 +21,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: ()=> import('../views/HomeView.vue'),
+      component: () => import('../views/Login.vue'),
+      // component: ()=> import('../views/HomeView.vue'),
       beforeEnter:guest,
     },
     {

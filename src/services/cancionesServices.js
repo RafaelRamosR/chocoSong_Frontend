@@ -11,6 +11,13 @@ export const cancionesServices={
                 'Authorization':'Bearer '+userServices.getToken()
             }
         })
+        .catch((error)=>{
+            if (error.request.status==401) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('idenfify')
+                window.location('/login')
+            }
+        })
     },
     create(datos){
         return axios({

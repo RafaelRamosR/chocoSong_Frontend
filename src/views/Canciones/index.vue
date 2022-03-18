@@ -53,11 +53,11 @@ export default ({
            cancionesServices.index()
            .then((response)=>{
                this.datos=response.data
-               console.log(response.data)
                this.loading=false
            })
            .catch((error)=>{
                console.log(error)
+               
            })
        }
     },
