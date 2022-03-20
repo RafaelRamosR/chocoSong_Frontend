@@ -16,7 +16,12 @@ let guest = (to, from) => {
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  /**
+   * Esta línea dejaba la pantalla en blanco
+   * Al no tener la variable de entorno arroja undefined
+   */
+  // history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
