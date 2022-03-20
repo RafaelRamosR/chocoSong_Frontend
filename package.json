@@ -3,11 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --port 5050"
+    "build": "vue-cli-service build",
+    "preview": "vite preview --port 5050",
+    "serve:test": "http-server ./dist",
+    "ngrok": "ngrok http 8080"
   },
   "dependencies": {
     "axios": "^0.26.0",
+    "core-js": "^3.8.3",
+    "register-service-worker": "^1.7.2",
     "stylus": "^0.56.0",
     "stylus-loader": "^3.0.2",
     "vue": "^3.2.29",
@@ -16,7 +20,12 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.1.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
     "autoprefixer": "^10.4.2",
+    "http-server": "^14.1.0",
+    "ngrok": "^4.3.1",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.23",
     "vite": "^2.7.13"
